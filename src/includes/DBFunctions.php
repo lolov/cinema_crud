@@ -7,11 +7,11 @@ use Semeformation\Mvc\Cinema_crud\includes\Utils;
 use Psr\Log\LoggerInterface;
 use PDO;
 use Exception;
-
-class DBFunctions {
+//class DBFunction passe en abstract 
+abstract class DBFunctions {
 
     // logger
-    private $logger;
+    protected $logger;
 
     public function __construct(LoggerInterface $logger = null) {
         $this->logger = $logger;
@@ -650,7 +650,7 @@ class DBFunctions {
      * @param boolean $estVisible (visualisation du résultat)
      * @return array[] ou null
      */
-    private function extraire1xN($unSQLSelect, $parametres = null,
+    protected function extraire1xN($unSQLSelect, $parametres = null,
             $estVisible = false) {
         $result = $this->extraireNxN($unSQLSelect, $parametres, false);
         if (isset($result[0])) {
