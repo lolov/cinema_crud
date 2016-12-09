@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-
+//fdgfdgfdfgd
 require_once __DIR__ . './includes/Manager.php';
 
 // initialisation de l'application
