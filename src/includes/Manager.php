@@ -1,5 +1,5 @@
 <?php
-
+require_once'./models/Utilisateur.php';
 use Semeformation\Mvc\Cinema_crud\includes\DBFunctions;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

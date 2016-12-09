@@ -121,26 +121,7 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         return $resultat;
     }
     
-     /**
-     * Méthode qui renvoie les informations sur un film favori donné pour un utilisateur donné
-     * @param int $userID Identifiant de l'utilisateur
-     * @param int $filmID Identifiant du film
-     * @return array[]
-     */
-    public function getFavoriteMovieInformations($userID, $filmID) {
-        // requête qui récupère les informations d'une préférence de film pour un utilisateur donné
-        $requete = "SELECT f.titre, p.userID, p.filmID, p.commentaire"
-                . " FROM prefere p INNER JOIN film f ON p.filmID = f.filmID"
-                . " WHERE p.userID = "
-                . $userID
-                . " AND p.filmID = "
-                . $filmID;
-
-        // on extrait les résultats de la BDD
-        $resultat = $this->extraire1xN($requete, null, false);
-        // on retourne le résultat
-        return $resultat;
-    }
+    
     
      /**
      * Méthode qui met à jour une préférence de film pour un utilisateur
@@ -160,21 +141,7 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         $this->executeQuery($requete);
     }
     
-     /**
-     * 
-     * @param type $userID
-     * @param type $filmID
-     */
-    public function deleteFavoriteMovie($userID, $filmID) {
-        $this->executeQuery("DELETE FROM prefere WHERE userID = "
-                . $userID
-                . " AND filmID = "
-                . $filmID);
-
-        if ($this->logger) {
-            $this->logger->info('Movie ' . $filmID . ' successfully deleted from ' . $userID . '\'s preferences.');
-        }
-    }
+   
 
     
     /**

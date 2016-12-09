@@ -32,7 +32,7 @@
         <ul>
             <?php
             // on récupère la liste des films de ce cinéma
-            $films = $fctManager->getCinemaMoviesByCinemaID($cinemaID);
+            $films = $utilisateursMgr->getCinemaMoviesByCinemaID($cinemaID);
             // si au moins un résultat
             if (count($films) > 0) {
                 // on boucle sur les résultats

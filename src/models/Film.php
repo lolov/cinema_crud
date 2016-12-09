@@ -52,35 +52,9 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
     }
     
     
-     /**
-     * Méthode qui renvoie la liste des films
-     * @return array[][]
-     */
-    public function getMoviesList() {
-        $requete = "SELECT * FROM film";
-        // on retourne le résultat
-        return $this->extraireNxN($requete, null, false);
-    }
+    
 
-    /**
-     * 
-     * @param type $titre
-     * @param type $titreOriginal
-     */
-    public function insertNewMovie($titre, $titreOriginal = null) {
-        // construction
-        $requete = "INSERT INTO film (titre, titreOriginal) VALUES ("
-                . ":titre"
-                . ", :titreOriginal)";
-        // exécution
-        $this->executeQuery($requete,
-                ['titre' => $titre,
-            'titreOriginal' => $titreOriginal]);
-        // log
-        if ($this->logger) {
-            $this->logger->info('Movie ' . $titre . ' successfully added.');
-        }
-    }
+    
     
     
     /**
@@ -102,18 +76,7 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         $this->executeQuery($requete);
     }
 
-    /**
-     * 
-     * @param type $movieID
-     */
-    public function deleteMovie($movieID) {
-        $this->executeQuery("DELETE FROM film WHERE filmID = "
-                . $movieID);
-
-        if ($this->logger) {
-            $this->logger->info('Movie ' . $movieID . ' successfully deleted.');
-        }
-    }
+   
 
     /**
      * Méthode qui ne renvoie que les titres et ID de films non encore marqués
@@ -137,7 +100,7 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         return $resultat;
     }
 
-    /**
+     /**
      * Renvoie une liste de films pas encore programmés pour un cinema donné
      * @param integer $cinemaID
      * @return array
@@ -158,18 +121,7 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         return $resultat;
     }
     
-    /**
-     * 
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieInformationsByID($filmID) {
-        $requete = "SELECT * FROM film WHERE filmID = "
-                . $filmID;
-        $resultat = $this->extraire1xN($requete);
-        // on retourne le résultat extrait
-        return $resultat;
-    }
+   
     
      /**
      * 
