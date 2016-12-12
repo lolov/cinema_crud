@@ -115,108 +115,16 @@ class Utilisateur extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         }
     }
     
-     /**
-     * Méthode qui retourne les films préférés d'un utilisateur donné
-     * @param string $utilisateur Adresse email de l'utilisateur
-     * @return array[][] Les films préférés (sous forme de tableau associatif) de l'utilisateur
-     */
-    public function getFavoriteMoviesFromUser($id) {
-        // on construit la requête qui va récupérer les films de l'utilisateur
-        $requete = "SELECT f.filmID, f.titre, p.commentaire from film f" .
-                " INNER JOIN prefere p ON f.filmID = p.filmID" .
-                " AND p.userID = " . $id;
-
-        // on extrait le résultat de la BDD sous forme de tableau associatif
-        $resultat = $this->extraireNxN($requete, null, false);
-
-        // on retourne le résultat
-        return $resultat;
-    }
-    
-    
-     /**
-     * 
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieInformationsByID($filmID) {
-        $requete = "SELECT * FROM film WHERE filmID = "
-                . $filmID;
-        $resultat = $this->extraire1xN($requete);
-        // on retourne le résultat extrait
-        return $resultat;
-    }
-    
-     /**
-     * Renvoie une liste de cinémas qui ne projettent pas le film donné
-     * @param integer $filmID
-     * @return array
-     */
-    public function getNonPlannedCinemas($filmID) {
-        // requête de récupération des titres et des identifiants des films
-        // qui n'ont pas encore été programmés dans ce cinéma
-        $requete = "SELECT c.cinemaID, c.denomination "
-                . "FROM cinema c"
-                . " WHERE c.cinemaID NOT IN ("
-                . "SELECT cinemaID"
-                . " FROM seance"
-                . " WHERE filmID = :id"
-                . ")";
-        // extraction de résultat
-        $resultat = $this->extraireNxN($requete, ['id' => $filmID], false);
-        // retour du résultat
-        return $resultat;
-    }
-    
-     /**
-     * 
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieCinemasByMovieID($filmID) {
-        // requête qui nous permet de récupérer la liste des cinémas pour un film donné
-        $requete = "SELECT DISTINCT c.* FROM cinema c"
-                . " INNER JOIN seance s ON c.cinemaID = s.cinemaID"
-                . " AND s.filmID = " . $filmID;
-        // on extrait les résultats
-        $resultat = $this->extraireNxN($requete);
-        // on retourne le résultat
-        return $resultat;
-    }
-    
-    
-     /**
-     * 
-     * @param type $cinemaID
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieShowtimes($cinemaID, $filmID) {
-        // requête qui permet de récupérer la liste des séances d'un film donné dans un cinéma donné
-        $requete = "SELECT s.* FROM seance s"
-                . " WHERE s.filmID = " . $filmID
-                . " AND s.cinemaID = " . $cinemaID;
-        // on extrait les résultats
-        $resultat = $this->extraireNxN($requete);
-        // on retourne la requête
-        return $resultat;
-    }
-    
-    public function getFavoriteMovieInformations($userID, $filmID) {
-        // requête qui récupère les informations d'une préférence de film pour un utilisateur donné
-        $requete = "SELECT f.titre, p.userID, p.filmID, p.commentaire"
-                . " FROM prefere p INNER JOIN film f ON p.filmID = f.filmID"
-                . " WHERE p.userID = "
-                . $userID
-                . " AND p.filmID = "
-                . $filmID; 
-
-        // on extrait les résultats de la BDD
-        $resultat = $this->extraire1xN($requete, null, false);
-        // on retourne le résultat
-        return $resultat;
-    }
-
+   
 }
+    
+   
+    
+    
+    
+     
+    
+    
+   
 
 

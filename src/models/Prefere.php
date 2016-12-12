@@ -13,66 +13,11 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
      * @param string $utilisateur Adresse email de l'utilisateur
      * @return array[][] Les films préférés (sous forme de tableau associatif) de l'utilisateur
      */
-    /**
-     * Méthode qui renvoie les informations sur un film favori donné pour un utilisateur donné
-     * @param int $userID Identifiant de l'utilisateur
-     * @param int $filmID Identifiant du film
-     * @return array[]
-     */
-    public function getFavoriteMovieInformations($userID, $filmID) {
-        // requête qui récupère les informations d'une préférence de film pour un utilisateur donné
-        $requete = "SELECT f.titre, p.userID, p.filmID, p.commentaire"
-                . " FROM prefere p INNER JOIN film f ON p.filmID = f.filmID"
-                . " WHERE p.userID = "
-                . $userID
-                . " AND p.filmID = "
-                . $filmID;
+   
 
-        // on extrait les résultats de la BDD
-        $resultat = $this->extraire1xN($requete, null, false);
-        // on retourne le résultat
-        return $resultat;
-    }
+  
 
-    /**
-     * Méthode qui met à jour une préférence de film pour un utilisateur
-     * @param int userID Identifiant de l'utilisateur
-     * @param int filmID Identifiant du film
-     * @param string comment Commentaire de l'utilisateur à propos de ce film
-     */
-    public function updateFavoriteMovie($userID, $filmID, $comment) {
-        // on construit la requête d'insertion
-        $requete = "UPDATE prefere SET commentaire = "
-                . "'" . $comment . "'"
-                . " WHERE filmID = "
-                . $filmID
-                . " AND userID = "
-                . $userID;
-        // exécution de la requête
-        $this->executeQuery($requete);
-    }
-
-    /**
-     * Méthode qui ne renvoie que les titres et ID de films non encore marqués
-     * comme favoris par l'utilisateur passé en paramètre
-     * @param int $userID Identifiant de l'utilisateur
-     * @return array[][] Titres et ID des films présents dans la base
-     */
-    public function getMoviesNonAlreadyMarkedAsFavorite($userID) {
-        // requête de récupération des titres et des identifiants des films
-        // qui n'ont pas encore été marqués comme favoris par l'utilisateur
-        $requete = "SELECT f.filmID, f.titre "
-                . "FROM film f"
-                . " WHERE f.filmID NOT IN ("
-                . "SELECT filmID"
-                . " FROM prefere"
-                . " WHERE userID = :id"
-                . ")";
-        // extraction de résultat
-        $resultat = $this->extraireNxN($requete, ['id' => $userID], false);
-        // retour du résultat
-        return $resultat;
-    }
+   
     
       /**
      * 
@@ -129,6 +74,22 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
     }
     
    
+     public function getFavoriteMovieInformations($userID, $filmID) {
+        // requête qui récupère les informations d'une préférence de film pour un utilisateur donné
+        $requete = "SELECT f.titre, p.userID, p.filmID, p.commentaire"
+                . " FROM prefere p INNER JOIN film f ON p.filmID = f.filmID"
+                . " WHERE p.userID = "
+                . $userID
+                . " AND p.filmID = "
+                . $filmID; 
+
+        // on extrait les résultats de la BDD
+        $resultat = $this->extraire1xN($requete, null, false);
+        // on retourne le résultat
+        return $resultat;
+    }
+
+
 
     
     /**
@@ -155,6 +116,32 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         }
     }
 
+    
+     /**
+     * Méthode qui ne renvoie que les titres et ID de films non encore marqués
+     * comme favoris par l'utilisateur passé en paramètre
+     * @param int $userID Identifiant de l'utilisateur
+     * @return array[][] Titres et ID des films présents dans la base
+     */
+    public function getMoviesNonAlreadyMarkedAsFavorite($userID) {
+        // requête de récupération des titres et des identifiants des films
+        // qui n'ont pas encore été marqués comme favoris par l'utilisateur
+        $requete = "SELECT f.filmID, f.titre "
+                . "FROM film f"
+                . " WHERE f.filmID NOT IN ("
+                . "SELECT filmID"
+                . " FROM prefere"
+                . " WHERE userID = :id"
+                . ")";
+        // extraction de résultat
+        $resultat = $this->extraireNxN($requete, ['id' => $userID], false);
+        // retour du résultat
+        return $resultat;
+    }
+    
+   
+
+    
 
 }
 

@@ -32,7 +32,7 @@
         <ul>
             <?php
             // on récupère la liste des films de ce cinéma
-            $films = $utilisateursMgr->getCinemaMoviesByCinemaID($cinemaID);
+            $films = $film1->getCinemaMoviesByCinemaID($cinemaID);
             // si au moins un résultat
             if (count($films) > 0) {
                 // on boucle sur les résultats
@@ -51,8 +51,7 @@
                         </tr>
                         <?php
                         // on récupère pour chaque film de ce cinéma, la liste des séances
-                        $seances = $fctManager->getMovieShowtimes($cinemaID,
-                                $film['FILMID']);
+                        $seances = $seance1->getMovieShowtimes($cinemaID, $film['FILMID']);
                         // boucle sur les séances
                         foreach ($seances as $seance) {
                             /*

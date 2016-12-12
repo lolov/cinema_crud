@@ -36,7 +36,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === "POST") {
         // et que nous ne sommes pas en train de modifier un cinéma
         if ($sanEntries['modificationInProgress'] == NULL) {
             // on ajoute le cinéma
-            $fctManager->insertNewCinema($sanEntries['denomination'], $sanEntries['adresse']);
+            $cinema->insertNewCinema($sanEntries['denomination'], $sanEntries['adresse']);
         }
         // sinon, nous sommes dans le cas d'une modification
         else {

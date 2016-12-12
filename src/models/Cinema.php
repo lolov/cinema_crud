@@ -9,6 +9,29 @@
 
 
 class Cinema extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
+   
+    
+     /**
+     * 
+     * @param type $denomination
+     * @param type $adresse
+     */
+    public function insertNewCinema($denomination, $adresse) {
+        // construction
+        $requete = "INSERT INTO cinema (denomination, adresse) VALUES ("
+                . ":denomination"
+                . ", :adresse)";
+        // exécution
+        $this->executeQuery($requete,
+                ['denomination' => $denomination,
+            'adresse' => $adresse]);
+        // log
+        if ($this->logger) {
+            $this->logger->info('Cinema ' . $denomination . ' successfully added.');
+        }
+    }
+    
+    
      /**
      * Renvoie une liste de cinémas qui ne projettent pas le film donné
      * @param integer $filmID
@@ -31,25 +54,7 @@ class Cinema extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
     }
     
     
-     /**
-     * 
-     * @param type $denomination
-     * @param type $adresse
-     */
-    public function insertNewCinema($denomination, $adresse) {
-        // construction
-        $requete = "INSERT INTO cinema (denomination, adresse) VALUES ("
-                . ":denomination"
-                . ", :adresse)";
-        // exécution
-        $this->executeQuery($requete,
-                ['denomination' => $denomination,
-            'adresse' => $adresse]);
-        // log
-        if ($this->logger) {
-            $this->logger->info('Cinema ' . $denomination . ' successfully added.');
-        }
-    }
+   
     
     
      /**
@@ -103,39 +108,10 @@ class Cinema extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         return $resultat;
     }
 
-    /**
-     * 
-     * @param type $cinemaID
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieShowtimes($cinemaID, $filmID) {
-        // requête qui permet de récupérer la liste des séances d'un film donné dans un cinéma donné
-        $requete = "SELECT s.* FROM seance s"
-                . " WHERE s.filmID = " . $filmID
-                . " AND s.cinemaID = " . $cinemaID;
-        // on extrait les résultats
-        $resultat = $this->extraireNxN($requete);
-        // on retourne la requête
-        return $resultat;
-    }
+    
 
 
-     /**
-     * 
-     * @param type $filmID
-     * @return type
-     */
-    public function getMovieCinemasByMovieID($filmID) {
-        // requête qui nous permet de récupérer la liste des cinémas pour un film donné
-        $requete = "SELECT DISTINCT c.* FROM cinema c"
-                . " INNER JOIN seance s ON c.cinemaID = s.cinemaID"
-                . " AND s.filmID = " . $filmID;
-        // on extrait les résultats
-        $resultat = $this->extraireNxN($requete);
-        // on retourne le résultat
-        return $resultat;
-    }
+   
     
     /**
      * 
@@ -159,17 +135,7 @@ class Cinema extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         $requete = "SELECT * FROM cinema";
         // on retourne le résultat
         return $this->extraireNxN($requete);
-    }
-
-    
-    
-    
-    
-    
-    
-    
-
-    
+    }  
     
 
 }

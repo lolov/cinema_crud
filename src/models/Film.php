@@ -52,9 +52,39 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
     }
     
     
+      /**
+     * 
+     * @param type $filmID
+     * @return type
+     */
+    public function getMovieCinemasByMovieID($filmID) {
+        // requête qui nous permet de récupérer la liste des cinémas pour un film donné
+        $requete = "SELECT DISTINCT c.* FROM cinema c"
+                . " INNER JOIN seance s ON c.cinemaID = s.cinemaID"
+                . " AND s.filmID = " . $filmID;
+        // on extrait les résultats
+        $resultat = $this->extraireNxN($requete);
+        // on retourne le résultat
+        return $resultat;
+    }
+    
+    
+    
+    
     
 
-    
+      /**
+     * 
+     * @param type $filmID
+     * @return type
+     */
+    public function getMovieInformationsByID($filmID) {
+        $requete = "SELECT * FROM film WHERE filmID = "
+                . $filmID;
+        $resultat = $this->extraire1xN($requete);
+        // on retourne le résultat extrait
+        return $resultat;
+    }
     
     
     /**
@@ -78,28 +108,7 @@ class Film extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
 
    
 
-    /**
-     * Méthode qui ne renvoie que les titres et ID de films non encore marqués
-     * comme favoris par l'utilisateur passé en paramètre
-     * @param int $userID Identifiant de l'utilisateur
-     * @return array[][] Titres et ID des films présents dans la base
-     */
-    public function getMoviesNonAlreadyMarkedAsFavorite($userID) {
-        // requête de récupération des titres et des identifiants des films
-        // qui n'ont pas encore été marqués comme favoris par l'utilisateur
-        $requete = "SELECT f.filmID, f.titre "
-                . "FROM film f"
-                . " WHERE f.filmID NOT IN ("
-                . "SELECT filmID"
-                . " FROM prefere"
-                . " WHERE userID = :id"
-                . ")";
-        // extraction de résultat
-        $resultat = $this->extraireNxN($requete, ['id' => $userID], false);
-        // retour du résultat
-        return $resultat;
-    }
-
+   
      /**
      * Renvoie une liste de films pas encore programmés pour un cinema donné
      * @param integer $cinemaID

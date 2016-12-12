@@ -14,6 +14,6 @@ if (array_key_exists("user", $_SESSION) and $_SESSION['user'] == 'admin@adm.adm'
 
 
 
-require_once __DIR__ .'/views/viewCinemaList.php';
+require_once __DIR__ .'/views/viewCinemasList.php';
 
 ?>

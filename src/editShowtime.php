@@ -45,9 +45,9 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'GET') {
         // d'où vient on ?
         $from = $sanitizedEntries['from'];
         // puis on récupère les informations du cinéma en question
-        $cinema = $fctManager->getCinemaInformationsByID($cinemaID);
+        $cinema = $cinema->getCinemaInformationsByID($cinemaID);
         // puis on récupère les informations du film en question
-        $film = $fctManager->getMovieInformationsByID($filmID);
+        $film = $film1->getMovieInformationsByID($filmID);
 
         // s'il on vient des séances du film
         if (strstr($sanitizedEntries['from'], 'movie')) {
@@ -109,19 +109,28 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'GET') {
         // nous sommes en Français
         setlocale(LC_TIME, 'fra_fra');
         // date du jour de projection de la séance
-        $datetimeDebut = new DateTime($sanitizedEntries['datedebut'] . ' ' . $sanitizedEntries['heuredebut']);
-        $datetimeFin = new DateTime($sanitizedEntries['datefin'] . ' ' . $sanitizedEntries['heurefin']);
+       // $datetimeDebut = new DateTime($sanitizedEntries['datedebut'] . ' ' . $sanitizedEntries['heuredebut']);
+       // $datetimeFin = new DateTime($sanitizedEntries['datefin'] . ' ' . $sanitizedEntries['heurefin']);
+        
+        $datetimeDebut = DateTime::createFromFormat('d/m/Y H:i', $sanitizedEntries['datedebut'] . ' ' . $sanitizedEntries['heuredebut']);
+        $datetimeFin = DateTime::createFromFormat('d/m/Y H:i', $sanitizedEntries['datefin'] . ' ' . $sanitizedEntries['heurefin']);
+
+
+        
+        
+        
+        
         // Est-on dans le cas d'une insertion ?
         if (!isset($sanitizedEntries['modificationInProgress'])) {
             // j'insère dans la base
-            $resultat = $fctManager->insertNewShowtime($sanitizedEntries['cinemaID'],
+            $resultat = $seance1->insertNewShowtime($sanitizedEntries['cinemaID'],
                     $sanitizedEntries['filmID'],
                     $datetimeDebut->format("Y-m-d H:i"),
                     $datetimeFin->format("Y-m-d H:i"),
                     $sanitizedEntries['version']);
         } else {
             // c'est une mise à jour
-            $resultat = $fctManager->updateShowtime($sanitizedEntries['cinemaID'],
+            $resultat = $seance1->updateShowtime($sanitizedEntries['cinemaID'],
                     $sanitizedEntries['filmID'],
                     $sanitizedEntries['dateheuredebutOld'],
                     $sanitizedEntries['dateheurefinOld'],
