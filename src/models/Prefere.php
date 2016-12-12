@@ -13,19 +13,6 @@ class Prefere extends  Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
      * @param string $utilisateur Adresse email de l'utilisateur
      * @return array[][] Les films préférés (sous forme de tableau associatif) de l'utilisateur
      */
-    public function getFavoriteMoviesFromUser($id) {
-        // on construit la requête qui va récupérer les films de l'utilisateur
-        $requete = "SELECT f.filmID, f.titre, p.commentaire from film f" .
-                " INNER JOIN prefere p ON f.filmID = p.filmID" .
-                " AND p.userID = " . $id;
-
-        // on extrait le résultat de la BDD sous forme de tableau associatif
-        $resultat = $this->extraireNxN($requete, null, false);
-
-        // on retourne le résultat
-        return $resultat;
-    }
-
     /**
      * Méthode qui renvoie les informations sur un film favori donné pour un utilisateur donné
      * @param int $userID Identifiant de l'utilisateur

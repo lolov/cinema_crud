@@ -201,6 +201,21 @@ class Utilisateur extends Semeformation\Mvc\Cinema_crud\includes\DBFunctions{
         // on retourne la requête
         return $resultat;
     }
+    
+    public function getFavoriteMovieInformations($userID, $filmID) {
+        // requête qui récupère les informations d'une préférence de film pour un utilisateur donné
+        $requete = "SELECT f.titre, p.userID, p.filmID, p.commentaire"
+                . " FROM prefere p INNER JOIN film f ON p.filmID = f.filmID"
+                . " WHERE p.userID = "
+                . $userID
+                . " AND p.filmID = "
+                . $filmID; 
+
+        // on extrait les résultats de la BDD
+        $resultat = $this->extraire1xN($requete, null, false);
+        // on retourne le résultat
+        return $resultat;
+    }
 
 }
 
