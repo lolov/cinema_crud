@@ -30,5 +30,5 @@ $managers = ['utilisateursMgr' => new Utilisateur($logger),
 
 
 
-//$fctManager = new DBFunctions($logger);
+
 
