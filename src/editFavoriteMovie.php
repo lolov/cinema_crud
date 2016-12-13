@@ -32,7 +32,8 @@ if (filter_input(INPUT_SERVER,
     // si l'action demandée est retour en arrière
     if ($sanitizedEntries['backToList'] !== NULL) {
         // on redirige vers la page d'édition des films favoris
-        header('Location: editFavoriteMoviesList.php');
+       // header('Location: editFavoriteMoviesList.php');
+         header('Location: index.php?action=editFavoriteMoviesList');
         exit;
     }
     // sinon (l'action demandée est la sauvegarde d'un favori)
@@ -43,19 +44,20 @@ if (filter_input(INPUT_SERVER,
             // et que nous ne sommes pas en train de modifier une préférence
             if ($sanitizedEntries['modificationInProgress'] == NULL) {
                 // on ajoute la préférence de l'utilisateur
-                $prefere->insertNewFavoriteMovie($sanitizedEntries['userID'],
+                $managers['prefere']->insertNewFavoriteMovie($sanitizedEntries['userID'],
                         $sanitizedEntries['filmID'],
                         $sanitizedEntries['comment']);
             }
             // sinon, nous sommes dans le cas d'une modification
             else {
                 // mise à jour de la préférence
-                $fctManager->updateFavoriteMovie($sanitizedEntries['userID'],
+                $managers['prefere']->updateFavoriteMovie($sanitizedEntries['userID'],
                         $sanitizedEntries['filmID'],
                         $sanitizedEntries['comment']);
             }
             // on revient à la liste des préférences
-            header('Location: editFavoriteMoviesList.php');
+          //  header('Location: editFavoriteMoviesList.php');
+            header('Location: index.php?action=editFavoriteMoviesList');
             exit;
         }
         // sinon (un film n'a pas été sélectionné)
@@ -83,7 +85,7 @@ if (filter_input(INPUT_SERVER,
 
     if ($sanitizedEntries && $sanitizedEntries['filmID'] !== NULL && $sanitizedEntries['filmID'] !== '' && $sanitizedEntries['userID'] !== NULL && $sanitizedEntries['userID'] !== '') {
         // on récupère les informations manquantes (le commentaire afférent)
-        $preference = $fctManager->getFavoriteMovieInformations($sanitizedEntries['userID'],
+        $preference = $managers['prefere']->getFavoriteMovieInformations($sanitizedEntries['userID'],
                 $sanitizedEntries['filmID']);
         // sinon, c'est une création
     } else {

@@ -1,11 +1,3 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +34,8 @@
             // sinon (utilisateur authentifié)
             else:
                 ?>
-                <form action="editFavoriteMoviesList.php">
+                <form action="index.php" method="GET">
+                    <input name="action" type="hidden" value="editFavoriteMoviesList"/> 
                     <input type="submit" value="Editer ma liste de films préférés"/>
                 </form>
                 <a href="logout.php">Se déconnecter</a>
@@ -52,10 +45,19 @@
         <div>
             <header>
                 <h1>Gestion des cinémas</h1>
-                <form name="cinemasList" action="cinemasList.php">
+             <!--   <form name="cinemasList" action="cinemasList.php">
                     <input type="submit" value="Consulter la liste des cinémas"/>
-                </form>
-                <form name="moviesList" action="moviesList.php">
+                </form>-->
+                <form name="cinemasList" method="GET" action="index.php"> 
+
+                     <input name="action" type="hidden" value="cinemasList"/> 
+
+                    <input type="submit" value="Consulter la liste des cinémas"/> 
+
+                  </form>
+                
+                <form name="moviesList" method="GET" action="index.php">
+                    <input name="action" type="hidden" value="moviesList"/> 
                     <input type="submit" value="Consulter la liste des films"/>
                 </form>
             </header>

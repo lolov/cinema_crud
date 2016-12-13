@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +15,7 @@
                         <?php
                         // si c'est une création, on crée la liste des films dynamiquement
                         if ($isItACreation) {
-                            $films = $prefere->getMoviesNonAlreadyMarkedAsFavorite($_SESSION['userID']);
+                            $films = $managers['prefere']->getMoviesNonAlreadyMarkedAsFavorite($_SESSION['userID']);
                             // s'il y a des résultats
                             if ($films) {
                                 foreach ($films as $film) {

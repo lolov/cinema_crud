@@ -12,8 +12,7 @@ if (!array_key_exists("user", $_SESSION)) {
 }
 // l'utilisateur est loggué
 else {
-    $utilisateur = $utilisateursMgr->getCompleteUsernameByEmailAddress($_SESSION['user']);
+    $utilisateur = $managers['utilisateursMgr']->getCompleteUsernameByEmailAddress($_SESSION['user']);
 }
-
-require_once __DIR__ .'/views/viewFavoriteMoviesList.php';
+require_once __DIR__ .'/views/viewEditFavoriteMoviesList.php';
 ?>

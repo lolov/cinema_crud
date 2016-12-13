@@ -11,11 +11,22 @@ use Monolog\Handler\StreamHandler;
 // Création du logger
 $logger = new Logger("Functions");
 $logger->pushHandler(new StreamHandler(dirname(__DIR__) . './logs/functions.log'));
-$utilisateursMgr = new Utilisateur($logger);
-$cinema = new Cinema();
-$film1 = new Film();
-$seance1 = new Seance();
-$prefere = new Prefere();
+//$utilisateursMgr = new Utilisateur($logger);
+//$cinema = new Cinema();
+//$film1 = new Film();
+//$seance1 = new Seance();
+//$prefere = new Prefere();
+
+
+
+$managers = ['utilisateursMgr' => new Utilisateur($logger),
+    'cinema' => new Cinema($logger),
+    'film1' => new Film($logger),
+    'seance1' => new Seance($logger),
+    'prefere' => new Prefere($logger)
+    
+    
+    ];
 
 
 

@@ -36,12 +36,12 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === "POST") {
         // et que nous ne sommes pas en train de modifier un film
         if ($sanEntries['modificationInProgress'] == NULL) {
             // on ajoute le film
-            $fctManager->insertNewMovie($sanEntries['titre'], $sanEntries['titreOriginal']);
+            $managers['film1']->insertNewMovie($sanEntries['titre'], $sanEntries['titreOriginal']);
         }
         // sinon, nous sommes dans le cas d'une modification
         else {
             // mise à jour du film
-            $fctManager->updateMovie($sanEntries['filmID'], $sanEntries['titre'], $sanEntries['titreOriginal']);
+            $managers['film1']->updateMovie($sanEntries['filmID'], $sanEntries['titre'], $sanEntries['titreOriginal']);
         }
         // on revient à la liste des films
         header('Location: moviesList.php');
@@ -53,7 +53,7 @@ elseif (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === "GET") {
     $sanEntries = filter_input_array(INPUT_GET, ['filmID' => FILTER_SANITIZE_NUMBER_INT]);
     if ($sanEntries && $sanEntries['filmID'] !== NULL && $sanEntries['filmID'] !== '') {
         // on récupère les informations manquantes 
-        $film = $fctManager->getMovieInformationsByID($sanEntries['filmID']);
+        $film = $managers['film1']->getMovieInformationsByID($sanEntries['filmID']);
     }
     // sinon, c'est une création
     else {
@@ -65,33 +65,6 @@ elseif (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === "GET") {
         ];
     }
 }
+
+require_once __DIR__ .'/views/viewEditMovie.php';
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Film - Editer un film</title>
-        <link rel="stylesheet" type="text/css" href="css/cinema.css"/>
-    </head>
-    <body>
-        <h1>Ajouter/Modifier un film</h1>
-        <form method="POST" name="editCinema" action="editMovie.php">
-            <label>Titre :</label>
-            <input name="titre" type="text" value="<?= $film['TITRE'] ?>" required/>
-            <label>Titre original :</label>
-            <input name="titreOriginal" type="text" value="<?= $film['TITREORIGINAL'] ?>" required/>
-            <br/>
-            <input type="hidden" value="<?= $film['FILMID'] ?>" name="filmID"/>
-            <?php
-            // si c'est une modification, c'est une information dont nous avons besoin
-            if (!$isItACreation) {
-                ?>
-                <input type="hidden" name="modificationInProgress" value="true"/>
-                <?php
-            }
-            ?>
-            <input type="submit" name="saveEntry" value="Sauvegarder"/>
-            <input type="submit" name="backToList" value="Retour à la liste"/>
-        </form>
-    </body>
-</html>

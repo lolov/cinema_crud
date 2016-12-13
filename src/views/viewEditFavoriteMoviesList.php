@@ -4,7 +4,6 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -32,7 +31,6 @@ and open the template in the editor.
                         <td><?= $film['commentaire'] ?></td>
                         <td>
                             <form name="modifyFavoriteMovie" action="editFavoriteMovie.php" method="GET">
-                               
                                 <input type="hidden" name="userID" value="<?= $utilisateur['userID'] ?>"/>
                                 <input type="hidden" name="filmID" value="<?= $film['filmID'] ?>"/>
                                 <input type="image" src="images/modifyIcon.png" alt="Modify"/>

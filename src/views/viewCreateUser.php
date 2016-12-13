@@ -8,6 +8,8 @@
     <body>
         <header><h1>Création d'un nouvel utilisateur</h1></header>
         <form name="createUser" method="POST" action="createNewUser.php">
+           <!-- <input name="action" type="hidden" value="createNewUser" />-->
+            
             <!-- la longueur maximum des input est en corrélation avec la longueur maximum des champs dans la BDD -->
             <label>Prénom :</label>
             <input name='firstName' type="text" maxlength="30" value="<?= $sanitizedEntries['firstName']
@@ -61,7 +63,9 @@
             </div>
             <input type="submit" value="Créer un nouvel utilisateur"/>
         </form>
-        <form name="backToMainPage" action="index.php">
+     
+        
+         <form name="backToMainPage" action="index.php">
             <input type="submit" value="Retour à l'accueil"/>
         </form>
     </body>
